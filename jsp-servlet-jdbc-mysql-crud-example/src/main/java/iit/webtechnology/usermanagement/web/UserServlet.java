@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import iit.webtechnology.usermanagement.dao.UserDAO;
 import iit.webtechnology.usermanagement.model.User;
@@ -18,6 +18,7 @@ import iit.webtechnology.usermanagement.model.User;
  * Servlet implementation class UserServlet
  */
 @WebServlet("/")
+
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
@@ -25,16 +26,26 @@ public class UserServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserServlet() {
-        this.userDAO =  new UserDAO();
-        // TODO Auto-generated constructor stub
-    }
+	/*
+	 * public UserServlet() { this.userDAO = new UserDAO();
+	 * 
+	 * // TODO Auto-generated constructor stub }
+	 */
+    
+    public void init() {
+		userDAO = new UserDAO();
+	}
 
+    	private void onload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			// TODO Auto-generated method stub
+    		doGet(request, response);
+		}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getServletPath();
+		System.out.println(action);
 		switch(action) {
 		case "/new": showNewForm(request, response); 
 			break;
@@ -77,35 +88,37 @@ public class UserServlet extends HttpServlet {
 		String country = request.getParameter("country");
 		User newUser = new User(name, email, country);
 		userDAO.insertUser(newUser);
-		response.sendRedirect("list");
+		response.sendRedirect(request.getContextPath() + "/list");
 	}
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		int id = Integer.parseInt(request.getParameter("id")); 
 		User currentUser = userDAO.selectUser(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
-		request.setAttribute("userUpdate", currentUser);
+		request.setAttribute("user", currentUser);
 		dispatcher.forward(request, response);
 	}
 	
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		System.out.println(request.getParameter("id"));
 		int id = Integer.parseInt(request.getParameter("id")); 
 		userDAO.deleteUser(id);
-		response.sendRedirect("list");
+		response.sendRedirect(request.getContextPath() + "/list");
 	}
 	
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String country = request.getParameter("country");
-		User newUser = new User(name, email, country);
+		int id = Integer.parseInt(request.getParameter("id"));
+		User newUser = new User(id,name, email, country);
 		userDAO.updateUser(newUser);
-		response.sendRedirect("list");
+		response.sendRedirect(request.getContextPath() + "/list");
 	}
 	
 	private void listUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<User> users = userDAO.selectAllUsers();
 		request.setAttribute("listUser", users);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("showUsersList.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 	
