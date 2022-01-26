@@ -26,14 +26,8 @@ public class UserServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-
 	public UserServlet() {
 		this.userDAO = new UserDAO();
-	}
-
-	private void onload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 	/**
@@ -81,7 +75,7 @@ public class UserServlet extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/templates/userForm.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -98,7 +92,7 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		User currentUser = userDAO.selectUser(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/templates/userForm.jsp");
 		request.setAttribute("user", currentUser);
 		dispatcher.forward(request, response);
 	}

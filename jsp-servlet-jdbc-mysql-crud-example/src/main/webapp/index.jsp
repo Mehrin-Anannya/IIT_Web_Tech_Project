@@ -10,7 +10,7 @@
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-	<%-- <jsp: include page= ""/>	 --%>
+		 
 	<nav class="navbar navbar-expand-md navbar-light bg-success">
 		<h3 class="text-white">Teacher's Management Application</h3>
 		<ul class="navbar-nav">
