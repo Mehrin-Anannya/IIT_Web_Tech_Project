@@ -12,7 +12,7 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 <body>
 		 
 	<nav class="navbar navbar-expand-md navbar-light bg-success">
-		<h3 class="text-white">Teacher's Management Application</h3>
+		<h3 class="text-white">Users Management Application</h3>
 		<ul class="navbar-nav">
 			<li><a href="<%=request.getContextPath()%>/list" class="nav-link">Users</a></li>
 		</ul>
@@ -41,16 +41,16 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 						</thead>
 						<tbody>
 							<!--   for (Todo todo: todos) {  -->
-							<c:forEach var="teacher" items="${listUser}">
+							<c:forEach var="user" items="${listUser}">
 		
 								<tr>
-									<td><c:out value="${teacher.id}" /></td>
-									<td><c:out value="${teacher.name}" /></td>
-									<td><c:out value="${teacher.email}" /></td>
-									<td><c:out value="${teacher.country}" /></td>
-									<td><a href="edit?id=<c:out value='${teacher.id}' />">Edit</a>
+									<td><c:out value="${user.id}" /></td>
+									<td><c:out value="${user.name}" /></td>
+									<td><c:out value="${user.email}" /></td>
+									<td><c:out value="${user.country}" /></td>
+									<td><a href="edit?id=<c:out value='${user.id}' />">Edit</a>
 										&nbsp;&nbsp;&nbsp;&nbsp; 
-										<a href="delete?id=<c:out value='${teacher.id}' />">Delete</a></td>
+										<a href="delete?id=<c:out value='${user.id}' />">Delete</a></td>
 								</tr>
 							</c:forEach>
 							<!-- } -->

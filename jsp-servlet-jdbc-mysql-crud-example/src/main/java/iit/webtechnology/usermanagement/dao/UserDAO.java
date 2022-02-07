@@ -16,11 +16,11 @@ public class UserDAO {
 	private String jdbcPassword = "mysql@1234";
 	
 	
-	private static final String INSERT_USERS_SQL = "Insert into teacher" + "(name, email, country) VALUES " + "(?, ?, ?);";
-	private static final String SELECT_USER_BY_ID = "select id, name, email, country from teacher where id = ?";
-	private static final String SELECT_ALL_USERS = "select * from teacher";
-	private static final String UPDATE_USERS_SQL = "update teacher set name = ?, email = ?, country = ? where id = ?;";
-	private static final String DELETE_USERS_SQL = "delete from teacher where id = ?;";
+	private static final String INSERT_USERS_SQL = "Insert into user" + "(name, email, country) VALUES " + "(?, ?, ?);";
+	private static final String SELECT_USER_BY_ID = "select id, name, email, country from user where id = ?";
+	private static final String SELECT_ALL_USERS = "select * from user";
+	private static final String UPDATE_USERS_SQL = "update user set name = ?, email = ?, country = ? where id = ?;";
+	private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
 	
 	
 	protected Connection getConnection() {
@@ -61,7 +61,6 @@ public class UserDAO {
 				preparedStatement.setString(3, user.getCountry());
 				preparedStatement.setInt(4, user.getId());
 				rowsUpdated = preparedStatement.executeUpdate() > 0;
-				System.out.println(user.getCountry());
 			}catch(Exception e) {
 				e.printStackTrace();
 		}

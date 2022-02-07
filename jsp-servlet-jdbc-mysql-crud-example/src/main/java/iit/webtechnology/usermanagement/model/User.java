@@ -21,8 +21,6 @@ public class User {
 		this.country = country;
 	}
 
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -47,7 +45,4 @@ public class User {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
-	
-
 }
